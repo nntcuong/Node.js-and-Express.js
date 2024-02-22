@@ -1,10 +1,10 @@
 const express = require('express');
+const { getHomepage } = require('../controllers/homeController');
+
 const router=express.Router();
 
 
-router.get('/', (req, res) => {
-    res.send('Hello World nodemon');
-});
+router.get('/',getHomepage);
 
 router.get('/abc', (req, res) => {
     res.send('check ABC');
