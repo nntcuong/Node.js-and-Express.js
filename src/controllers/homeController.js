@@ -1,3 +1,4 @@
+const connection=require('../config/database')
 const getHomepage=(req,res)=>{
     res.send('Hello World Cuong')
 }
