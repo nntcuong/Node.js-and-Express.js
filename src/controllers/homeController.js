@@ -1,6 +1,6 @@
 const connection=require('../config/database')
 const getHomepage=(req,res)=>{
-    res.send('Hello World Cuong')
+    return res.render('home.ejs')
 }
 const getABC=(req,res)=>{
     res.send('check ABC')
