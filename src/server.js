@@ -9,7 +9,6 @@ const connection = require('./config/database');
 const app = express();
 const port = process.env.PORT || 3000; // Use a default port if not provided
 const hostname = process.env.HOST_NAME || 'localhost'; // Use a default hostname if not provided
-require('dotenv').config();
 
 
 //test connection
@@ -19,9 +18,8 @@ require('dotenv').config();
 configViewEngine(app);
 
 
-
-//test connection
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
 connection.query(
