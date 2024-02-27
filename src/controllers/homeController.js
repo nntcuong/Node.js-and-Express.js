@@ -9,8 +9,12 @@ const getHoiDanIT=(req,res)=>{
     // res.send(`<h1> Hoi dan it </h1>`);
     res.render('sample.ejs');
 }
+const postCreateUser=(req,res)=>{
+ res.send('create user')
+}
 module.exports={
     getHomepage,
     getABC,
-    getHoiDanIT
+    getHoiDanIT,
+    postCreateUser
 }
