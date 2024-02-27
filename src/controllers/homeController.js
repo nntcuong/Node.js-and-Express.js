@@ -27,9 +27,14 @@ const postCreateUser = (req, res) => {
     )
 
 }
+const getCreateUser = (req, res) => {
+    res.render('create.ejs')
+
+}
 module.exports = {
     getHomepage,
     getABC,
     getHoiDanIT,
-    postCreateUser
+    postCreateUser,
+    getCreateUser
 }
