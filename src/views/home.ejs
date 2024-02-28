@@ -46,7 +46,7 @@
             <th>Actions</th>
         </tr>
 
-        <% for (let i = 0; i < listUsers.length; i++) { %>
+        <% for (let i=0; i < listUsers.length; i++) { %>
             <tr>
                 <td>
                     <%= listUsers[i].id %>
@@ -62,18 +62,20 @@
                 </td>
                 <td>
                     <a href="/edit/<%= listUsers[i].id %>">
-                        <button>
-                            Edit
-                        </button>
+
+                        Edit
+
                     </a>
-                    <button>
-                        Delete
-                    </button>
+                    <form action="/delete-user/<%= listUsers[i].id %>" method="POST">
+                        <button>
+                            Delete
+                        </button>
+                    </form>
                 </td>
             </tr>
-        <% } %>
-        
-        
+            <% } %>
+
+
     </table>
     </div>
 </body>

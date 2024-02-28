@@ -1,5 +1,5 @@
 const connection = require('../config/database')
-const { getAllUsers } = require('../services/CRUDService')
+const { getAllUsers, updateUserById,getUserById } = require('../services/CRUDService')
 const getHomepage = async (req, res) => {
     let results = await getAllUsers();
     return res.render('home.ejs', { listUsers: results });
@@ -17,16 +17,6 @@ const postCreateUser = async (req, res) => {
     let name = req.body.name;
     let city = req.body.city;
     console.log(email, name, city);
-
-    // connection.query(
-    //     `  INSERT INTO Users(email,name,city)
-    //     VALUES (?,?,?)`,
-    //     [email, name, city],
-    //     function (err, results) {
-    //         console.log(results);
-    //         res.send('Create user succeed!')
-    //     }
-    // )
     let [results, fields] = await connection.query(
         `  INSERT INTO Users(email,name,city)
             VALUES (?,?,?)`,
@@ -40,21 +30,56 @@ const getCreateUser = (req, res) => {
     res.render('create.ejs')
 
 }
-const getUpdateUser = async(req, res) => {
-        const userId=req.params.id;
-        let [results,fields] = await connection.query('select * from Users where id= ? ',[userId])
-      
-      console.log(results) 
-      let user=results&& results.length>0? results[0]:{} ;
-       res.render('edit.ejs',{user:user})
-    
+const getUpdateUser = async (req, res) => {
+    const userId = req.params.id;
+    let [results, fields] = await connection.query('select * from Users where id= ? ', [userId])
 
-    }
+    console.log(results)
+    let user = results && results.length > 0 ? results[0] : {};
+    res.render('edit.ejs', { user: user })
+
+
+}
+
+
+const postUpdateUser = async (req, res) => {
+    console.log("req ==>", req.body);
+    let email = req.body.email;
+    let name = req.body.name;
+    let city = req.body.city;
+    let userId = req.body.userId;
+    // let [results, fields] = await connection.query(
+    //     `UPDATE Users
+    //     SET email=?, city=?, name=?
+    //     WHERE id= ?`,
+    //     [email, city, name, userId]
+    // );
+    await updateUserById(email, city, name, userId);
+    res.redirect('/')
+}
+
+const postDeleteUser =async  (req, res) => {
+    const userId = req.params.id;
+    let [results, fields] = await connection.query('select * from Users where id= ? ', [userId])
+    let user = results && results.length > 0 ? results[0] : {};
+    res.render('delete.ejs', { user: user })
+}
+const postRemoveUser=async ( req, res) => {
+    const id=req.body.userId
+    let [results, fields] = await connection.query(
+        `  DELETE FROM Users WHERE id= ?`,
+        [id],
+    );
+    res.send('ok deleted')
+}
 module.exports = {
     getHomepage,
     getABC,
     getHoiDanIT,
     postCreateUser,
     getCreateUser,
-    getUpdateUser
+    getUpdateUser,
+    postUpdateUser,
+    postDeleteUser,
+    postRemoveUser
 }
