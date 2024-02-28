@@ -1,8 +1,8 @@
 const connection = require('../config/database')
-const {getAllUsers}=require('../services/CRUDService')
-const getHomepage = async(req, res) => {
-    let results=await getAllUsers();
-    return res.render('home.ejs',{listUsers: results});
+const { getAllUsers } = require('../services/CRUDService')
+const getHomepage = async (req, res) => {
+    let results = await getAllUsers();
+    return res.render('home.ejs', { listUsers: results });
 }
 const getABC = (req, res) => {
     res.send('check ABC')
@@ -27,12 +27,12 @@ const postCreateUser = async (req, res) => {
     //         res.send('Create user succeed!')
     //     }
     // )
-    let [results,fields] = await connection.query(
-            `  INSERT INTO Users(email,name,city)
+    let [results, fields] = await connection.query(
+        `  INSERT INTO Users(email,name,city)
             VALUES (?,?,?)`,
-            [email, name, city],
+        [email, name, city],
     );
- 
+
     console.log(results)
     res.send('Create user succeed!')
 }
@@ -40,10 +40,21 @@ const getCreateUser = (req, res) => {
     res.render('create.ejs')
 
 }
+const getUpdateUser = async(req, res) => {
+        const userId=req.params.id;
+        let [results,fields] = await connection.query('select * from Users where id= ? ',[userId])
+      
+      console.log(results) 
+      let user=results&& results.length>0? results[0]:{} ;
+       res.render('edit.ejs',{user:user})
+    
+
+    }
 module.exports = {
     getHomepage,
     getABC,
     getHoiDanIT,
     postCreateUser,
-    getCreateUser
+    getCreateUser,
+    getUpdateUser
 }

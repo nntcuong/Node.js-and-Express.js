@@ -61,15 +61,18 @@
                     <%= listUsers[i].city %>
                 </td>
                 <td>
+                    <a href="/edit/<%= listUsers[i].id %>">
+                        <button>
+                            Edit
+                        </button>
+                    </a>
                     <button>
-                        Edit
-                    </button>
-                    <button>
-                        Delete <!-- Corrected button label from "Edit" to "Delete" -->
+                        Delete
                     </button>
                 </td>
             </tr>
         <% } %>
+        
         
     </table>
     </div>
