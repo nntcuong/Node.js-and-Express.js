@@ -22,13 +22,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-// connection.query(
-//     `SELECT * FROM Users u`,
-//     function (err,results,fields){
-//         console.log("fields =",fields);
-//         console.log("results =",results);
-//     }
-//  );
 //khai bao router
 app.use('/',webRoutes)
 

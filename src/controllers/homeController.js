@@ -70,7 +70,7 @@ const postRemoveUser=async ( req, res) => {
         `  DELETE FROM Users WHERE id= ?`,
         [id],
     );
-    res.send('ok deleted')
+    res.redirect('/')
 }
 module.exports = {
     getHomepage,
