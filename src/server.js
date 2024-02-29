@@ -21,7 +21,7 @@ configViewEngine(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
+connection();
 //khai bao router
 app.use('/',webRoutes)
 
