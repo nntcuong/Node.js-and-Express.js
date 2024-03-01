@@ -57,16 +57,18 @@ const postUpdateUser = async (req, res) => {
 
 const postDeleteUser =async  (req, res) => {
     const userId = req.params.id;
-    let [results, fields] = await connection.query('select * from Users where id= ? ', [userId])
-    let user = results && results.length > 0 ? results[0] : {};
+    let user= await User.findById(userId).exec();
     res.render('delete.ejs', { user: user })
 }
 const postRemoveUser=async ( req, res) => {
     const id=req.body.userId
-    let [results, fields] = await connection.query(
-        `  DELETE FROM Users WHERE id= ?`,
-        [id],
-    );
+    // let [results, fields] = await connection.query(
+    //     `  DELETE FROM Users WHERE id= ?`,
+    //     [id],
+    // );
+    await User.deleteOne({
+        _id: id
+    })
     res.redirect('/')
 }
 module.exports = {
