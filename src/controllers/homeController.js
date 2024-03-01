@@ -34,10 +34,10 @@ const getCreateUser = (req, res) => {
 }
 const getUpdateUser = async (req, res) => {
     const userId = req.params.id;
-    let [results, fields] = await connection.query('select * from Users where id= ? ', [userId])
+    // let user=await getUserById(userId);
 
-    console.log(results)
-    let user = results && results.length > 0 ? results[0] : {};
+   let user= await User.findById(userId).exec();
+    
     res.render('edit.ejs', { user: user })
 
 
