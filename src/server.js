@@ -11,10 +11,11 @@ const app = express();
 const port = process.env.PORT || 3000; // Use a default port if not provided
 const hostname = process.env.HOST_NAME || 'localhost'; // Use a default hostname if not provided
 const Kitten = require('./models/Kitten');
-
+const fileUpload = require('express-fileupload');
 //test connection
 
-
+//config file
+app.use(fileUpload());
 
 configViewEngine(app);
 

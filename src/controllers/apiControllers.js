@@ -49,10 +49,16 @@ const deleteUserAPI=async ( req, res) => {
         data: User
     })
 }
+const postUploadFileSingleAPI= ( req, res) => {
+    console.log("req.file = ",req.files)
+
+    return res.send("ok single")
+}
 module.exports = {
     getUsersAPI,
     postCreateUserAPI,
     putUpdateUserAPI,
     deleteUserAPI,
+    postUploadFileSingleAPI
 
 }
