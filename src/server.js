@@ -5,6 +5,7 @@ const express = require('express');
 const path = require('path');
 const configViewEngine = require('./config/viewEngine');
 const webRoutes = require('./routes/web');
+const apiRoutes=require('./routes/api');
 const connection = require('./config/database');
 const app = express();
 const port = process.env.PORT || 3000; // Use a default port if not provided
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //khai bao router
 app.use('/', webRoutes);
+app.use('/v1/api',apiRoutes);
 //shapedatata
 
 // const cat = new Kitten({ name: 'Silence' });
