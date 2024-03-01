@@ -26,7 +26,7 @@ const postCreateUser = async (req, res) => {
 
     // console.log(results)
     await User.create({email:email, name:name, city:city});
-    res.send('Create user succeed!')
+    res.redirect('/')
 }
 const getCreateUser = (req, res) => {
     res.render('create.ejs')
@@ -50,13 +50,8 @@ const postUpdateUser = async (req, res) => {
     let name = req.body.name;
     let city = req.body.city;
     let userId = req.body.userId;
-    // let [results, fields] = await connection.query(
-    //     `UPDATE Users
-    //     SET email=?, city=?, name=?
-    //     WHERE id= ?`,
-    //     [email, city, name, userId]
-    // );
-    await updateUserById(email, city, name, userId);
+    await User.updateOne({_id:userId},{name:name,email:email,city:city});
+    // await updateUserById(email, city, name, userId);
     res.redirect('/')
 }
 
