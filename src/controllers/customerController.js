@@ -50,7 +50,25 @@ module.exports = {
             data: customer
         })
     },
+    deleteACustomerAPI: async (req, res) => {
+        let id=req.body.id
+        let customer=await deleteCustomer(id)
+        return res.status(200).json({
+            EC: 0,
+            data: customer
+        })
+    },
+    deleteArrayCustomerAPI: async (req, res) => {
+        let id=req.body.customersId
+        let customer=await deleteArrayCustomer(id)
+        return res.status(200).json({
+            EC: 0,
+            data: customer
+        })
+    },
 };
 const { uploadSingleFile } = require("../services/fileServices")
-const { createCustomerService, createCustomerManyService, getAllCustomer, updateCustomer } = require("../services/customerService");
+const { createCustomerService, createCustomerManyService, getAllCustomer, updateCustomer,deleteCustomer,deleteArrayCustomer } = require("../services/customerService");
+const { response } = require("express");
+const customer = require("../models/customer");
 

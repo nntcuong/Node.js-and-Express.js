@@ -17,6 +17,7 @@
     "express-fileupload": "^1.4.3",
     "lodash": "^4.17.21",
     "mongoose": "^8.2.0",
+    "mongoose-delete": "1.0.2",
     "mysql2": "^3.9.1",
     "promise": "^8.3.0"
   },

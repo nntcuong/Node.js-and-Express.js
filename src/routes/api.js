@@ -10,7 +10,13 @@ const {getUsersAPI,
   
 }
 =require('../controllers/apiControllers')
-const {postCustomerAPI , postCustomerManyAPI,getArrayCustomerAPI,updateCustomerAPI} =require('../controllers/customerController')
+const {postCustomerAPI , 
+    postCustomerManyAPI,
+    getArrayCustomerAPI,
+    updateCustomerAPI,
+    deleteACustomerAPI,
+    deleteArrayCustomerAPI
+} =require('../controllers/customerController')
 
 
 routerAPI.get('/users',getUsersAPI);
@@ -26,4 +32,6 @@ routerAPI.post('/customers',postCustomerAPI);
 routerAPI.post('/customers-many',postCustomerManyAPI);
 routerAPI.get('/customers',getArrayCustomerAPI);
 routerAPI.put('/customers',updateCustomerAPI);
+routerAPI.delete('/customers',deleteACustomerAPI);
+routerAPI.delete('/customers-many',deleteArrayCustomerAPI);
 module.exports = routerAPI;
