@@ -7,10 +7,10 @@ const {getUsersAPI,
     deleteUserAPI,
     postUploadFileSingleAPI,
     postUploadMultipleFilesAPI,
-    
+  
 }
 =require('../controllers/apiControllers')
-const {postCustomerAPI} =require('../controllers/customerController')
+const {postCustomerAPI , postCustomerManyAPI,getArrayCustomerAPI,updateCustomerAPI} =require('../controllers/customerController')
 
 
 routerAPI.get('/users',getUsersAPI);
@@ -23,5 +23,7 @@ routerAPI.post('/file',postUploadFileSingleAPI);
 routerAPI.post('/files',postUploadMultipleFilesAPI);
 
 routerAPI.post('/customers',postCustomerAPI);
-
+routerAPI.post('/customers-many',postCustomerManyAPI);
+routerAPI.get('/customers',getArrayCustomerAPI);
+routerAPI.put('/customers',updateCustomerAPI);
 module.exports = routerAPI;

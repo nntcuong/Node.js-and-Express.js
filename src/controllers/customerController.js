@@ -1,17 +1,56 @@
 module.exports = {
-    postCustomerAPI: (req, res) => {
-        let {name,address,phone,email,description}=req.body;
+    postCustomerAPI: async (req, res) => {
+        let { name, address, phone, email, description } = req.body;
         console.log(">>> name :", name, "description:", description);
 
-        // name: {
-        //     type: String,
-        //     required: true
-        // },
-        // address: String,
-        // phone: String,
-        // email: String,
-        // image: String,
-        // description: String,
-    return res.send('Create a customer')
-    }
+
+        let imageUrl = "";
+        if (!req.files || Object.keys(req.files).length === 0) {
+            return res.status(400).send('No files were uploaded.');
+        }
+        else {
+            let results = await uploadSingleFile(req.files.image);
+
+            imageUrl = results.path;
+        }
+        let customerData = {
+            name,
+            address,
+            phone,
+            email,
+            description,
+            image: imageUrl
+        }
+        let customer = await createCustomerService(customerData);
+        return res.status(200).json({
+            EC: 0,
+            data: customer
+        })
+
+    },
+    postCustomerManyAPI: async (req, res) => {
+        let customer = await createCustomerManyService(req.body.customers);
+        return res.status(200).json({
+            EC: 0,
+            data: customer
+        })
+    },
+    getArrayCustomerAPI: async (req, res) => {
+        let customer = await getAllCustomer();
+        return res.status(200).json({
+            EC: 0,
+            data: customer
+        })
+    },
+    updateCustomerAPI: async (req, res) => {
+        let {id,name,email,address}=req.body
+        let customer=await updateCustomer(id,name,email,address)
+        return res.status(200).json({
+            EC: 0,
+            data: customer
+        })
+    },
 };
+const { uploadSingleFile } = require("../services/fileServices")
+const { createCustomerService, createCustomerManyService, getAllCustomer, updateCustomer } = require("../services/customerService");
+
