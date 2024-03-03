@@ -24,15 +24,32 @@ const createCustomerManyService = async (arr) => {
         return null;
     }
 };
-const getAllCustomer = async (arr) => {
+const getAllCustomer = async (limit, page, name) => {
     try {
-        let result = await Customer.find({})
+        let result = null;
+
+        if (limit && page) {
+            const skip = (page - 1) * limit;
+
+            if (name) {
+                const escapedName = name.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                result = await Customer.find({
+                    "name": { $regex: '^' + escapedName + '$', $options: 'i' }
+                }).skip(skip).limit(limit).exec();
+            } else {
+                result = await Customer.find({}).skip(skip).limit(limit).exec();
+            }
+        } else {
+            result = await Customer.find({});
+        }
+
         return result;
     } catch (error) {
-        console.error(error);
+        console.error("Lỗi trong getAllCustomer:", error.message);
         return null;
     }
 };
+
 const updateCustomer = async (id,name,email,address) => {
     try {
     

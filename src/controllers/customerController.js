@@ -36,7 +36,18 @@ module.exports = {
         })
     },
     getArrayCustomerAPI: async (req, res) => {
-        let customer = await getAllCustomer();
+        console.log(req.query)
+        let limit = req.query.limit;
+        let page = req.query.page;
+        let name=req.query.name;
+        let customer = null;
+
+        if(limit&&page){
+             customer = await getAllCustomer(limit,page,name);
+        }
+        else{
+        customer = await getAllCustomer();
+    }
         return res.status(200).json({
             EC: 0,
             data: customer
